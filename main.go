@@ -7,6 +7,7 @@ import (
 	"log"
 	"github.com/gin-gonic/gin"
 	"github.com/lbwise/LMS/db"
+	"github.com/lbwise/LMS/routes"
 )
 
 
@@ -16,24 +17,39 @@ func main() {
 	defer file.Close()
 	logger := log.New(file, "lms-app: ", log.Default().Flags())
 	server := gin.New()
-	DB, err := db.ConnectDB()
-	logger.Println("CONNECTED TO DB NOW")
-	db.ResetDB(DB)
-	fmt.Printf("-------- LISTENING ON localhost:8080 --------\n\n")
+	_, err := db.ConnectDB()
+	// db.ResetDB(DB)
 	if err != nil {
 		panic(err.Error())
 	}
+
+	logger.Println("CONNECTED TO DB NOW")
+	fmt.Printf("-------- LISTENING ON localhost:8080 --------\n\n")
+
 	server.Use(printLog)
 	server.GET("/home", getHome)
+	router := server.Group("/")
+	addRoutes(router)
+
 	err = server.Run(":8080")
 	if err != nil {
 		panic(err)
 	}
 }
 
+
+func addRoutes(router *gin.RouterGroup) {
+	routes.AuthRoutes(router.Group("/auth"))
+	routes.UserRoutes(router.Group("/user"))
+	routes.CourseRoutes(router.Group("/study"))
+
+}
+
+
 func getHome(c *gin.Context) {
 	c.String(201, "WELCOME HOME")
 }
+
 
 func printLog(c *gin.Context) {
 	fi, err := os.OpenFile("./log/log.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0600)

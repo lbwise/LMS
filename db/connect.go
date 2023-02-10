@@ -15,18 +15,21 @@ const (
 	dbname	= "lms"
 )
 
+var DB *sql.DB
+
 func ConnectDB() (*sql.DB, error) {
 	connString := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, pass, dbname)
-	DB, err := sql.Open("postgres", connString)
+	database, err := sql.Open("postgres", connString)
 	if err != nil {
 		panic(err.Error())
 	}
-	err = DB.Ping()
+	err = database.Ping()
 	if err != nil {
 		err = errors.New(err.Error())
 		return nil, err
 	}
 	fmt.Println("----------- DB CONNECTED ------------")
+	DB = database
 	return DB, nil
 }
 

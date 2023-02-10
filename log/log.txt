@@ -5,3 +5,17 @@ lms-app: GET /home 2023-02-09
 lms-app: GET /home 2023-02-09
 lms-app: GET /home 2023-02-10
 lms-app: GET / 2023-02-10
+lms-app: GET / 2023-02-10
+lms-app: GET /home 2023-02-10
+lms-app: GET /auth/login 2023-02-10
+lms-app: POST /login 2023-02-10
+lms-app: POST /auth/login 2023-02-10
+lms-app: POST /auth/login 2023-02-10
+lms-app: POST /auth/login 2023-02-10
+lms-app: POST /auth/login 2023-02-10
+lms-app: POST /auth/login 2023-02-10
+lms-app: POST /auth/login 2023-02-10
+lms-app: POST /auth/login 2023-02-10
+lms-app: POST /auth/login 2023-02-10
+lms-app: POST /auth/login 2023-02-10
+lms-app: POST /auth/login 2023-02-10
