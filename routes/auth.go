@@ -5,11 +5,12 @@ import (
 	"io"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"github.com/lbwise/LMS/db"
 )
 
 type UserLogin struct {
-	Username string `json: username`
-	Password string `json: password`
+	Username string `json: "username"`
+	Password string `json: "password"`
 }
 
 
@@ -28,16 +29,18 @@ func getLogin(c *gin.Context) {
 
 func postLogin(c *gin.Context) {
 	var user UserLogin
-	data, err := io.ReadAll(c.Request.Body)
+	var name string
+	data, _ := io.ReadAll(c.Request.Body)
+	err := json.Unmarshal(data, &user)	
 	if err != nil {
 		panic(err.Error())
 	}
-	err = json.Unmarshal(data, &user)	
+	query := fmt.Sprintf(`SELECT name FROM users WHERE password='%s'`, user.Password)
+	err = db.DB.QueryRow(query).Scan(&name)
 	if err != nil {
 		panic(err.Error())
 	}
-	msg := fmt.Sprintf("username: %s\tpassword: %s\n", user.Username, user.Password)
-	c.String(200, msg)
+	c.String(200, name)
 }
 
 

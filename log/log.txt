@@ -19,3 +19,80 @@ lms-app: POST /auth/login 2023-02-10
 lms-app: POST /auth/login 2023-02-10
 lms-app: POST /auth/login 2023-02-10
 lms-app: POST /auth/login 2023-02-10
+lms-app: POST /auth/login 2023-02-10
+lms-app: POST /auth/login 2023-02-10
+lms-app: GET /user/ 2023-02-11
+lms-app: GET /user/ 2023-02-11
+lms-app: GET /user/ 2023-02-11
+lms-app: GET /user/ 2023-02-11
+lms-app: GET /user/ 2023-02-11
+cat log.go
+this is a test
+this is a test
+this is a test
+this is a test
+this is a test
+this is a test
+this is a test
+this is a test
+lms-app: 2023/02/11 12:17:06 CONNECTED TO DB NOW
+lms-app: 2023/02/11 12:20:39 SERVER STARTING UP
+lms-app: 2023/02/11 12:20:39 CONNECTED TO DB NOW
+lms-app: 2023/02/11 12:23:52 SERVER STARTING UP
+lms-app: 2023/02/11 12:23:52 CONNECTED TO DB NOW
+lms-app: 2023/02/11 12:24:05 lms-app: GET /home 2023-02-11
+
+lms-app: 2023/02/11 12:25:20 SERVER STARTING UP
+lms-app: 2023/02/11 12:25:20 CONNECTED TO DB NOW
+lms-app: 2023/02/11 12:25:32 lms-app: GET /user/ 2023-02-11
+lms-app: 2023/02/11 12:26:05 SERVER STARTING UP
+lms-app: 2023/02/11 12:26:05 CONNECTED TO DB NOW
+lms-app: 2023/02/11 12:26:08 lms-app: GET /user/ 2023-02-11
+lms-app: 2023/02/11 12:26:30 SERVER STARTING UP
+lms-app: 2023/02/11 12:26:30 CONNECTED TO DB NOW
+lms-app: 2023/02/11 12:26:33 lms-app: GET /user/ 2023-02-11
+lms-app: 2023/02/11 12:26:53 SERVER STARTING UP
+lms-app: 2023/02/11 12:26:53 CONNECTED TO DB NOW
+lms-app: 2023/02/11 12:26:55 lms-app: GET /user/ 2023-02-11
+lms-app: 2023/02/11 12:29:55 SERVER STARTING UP
+lms-app: 2023/02/11 12:29:55 CONNECTED TO DB NOW
+lms-app: 2023/02/11 12:30:25 lms-app: GET /user/ 2023-02-11
+lms-app: 2023/02/11 12:31:15 SERVER STARTING UP
+lms-app: 2023/02/11 12:31:15 CONNECTED TO DB NOW
+lms-app: 2023/02/11 12:31:18 lms-app: GET /user/ 2023-02-11
+lms-app: 2023/02/11 12:32:04 SERVER STARTING UP
+lms-app: 2023/02/11 12:32:04 CONNECTED TO DB NOW
+lms-app: 2023/02/11 12:32:10 lms-app: GET /user/ 2023-02-11
+lms-app: 2023/02/11 12:39:32 SERVER STARTING UP
+lms-app: 2023/02/11 12:39:32 CONNECTED TO DB NOW
+lms-app: 2023/02/11 12:39:34 lms-app: GET /user/ 2023-02-11
+lms-app: 2023/02/11 12:41:18 lms-app: GET /user/ 2023-02-11
+lms-app: 2023/02/11 12:42:16 SERVER STARTING UP
+lms-app: 2023/02/11 12:42:16 CONNECTED TO DB NOW
+lms-app: 2023/02/11 12:42:21 lms-app: GET /user/ 2023-02-11
+lms-app: 2023/02/11 12:43:02 SERVER STARTING UP
+lms-app: 2023/02/11 12:43:02 CONNECTED TO DB NOW
+lms-app: 2023/02/11 12:43:04 lms-app: GET /user/ 2023-02-11
+lms-app: 2023/02/11 12:52:28 SERVER STARTING UP
+lms-app: 2023/02/11 12:52:28 CONNECTED TO DB NOW
+lms-app: 2023/02/11 12:52:50 SERVER STARTING UP
+lms-app: 2023/02/11 12:52:50 CONNECTED TO DB NOW
+lms-app: 2023/02/11 12:53:45 lms-app: GET /user 2023-02-11
+lms-app: 2023/02/11 12:54:02 SERVER STARTING UP
+lms-app: 2023/02/11 12:54:02 CONNECTED TO DB NOW
+lms-app: 2023/02/11 12:54:04 lms-app: GET /user 2023-02-11
+lms-app: 2023/02/11 13:07:20 SERVER STARTING UP
+lms-app: 2023/02/11 13:07:20 CONNECTED TO DB NOW
+lms-app: 2023/02/11 13:07:23 lms-app: GET /user/d6f98c81-0906-428c-9a1b-f797f7848ba9 2023-02-11
+lms-app: 2023/02/11 13:08:18 SERVER STARTING UP
+lms-app: 2023/02/11 13:08:18 CONNECTED TO DB NOW
+lms-app: 2023/02/11 13:08:20 lms-app: GET /user/d6f98c81-0906-428c-9a1b-f797f7848ba9 2023-02-11
+lms-app: 2023/02/11 13:09:53 lms-app: GET /user/126b8920-dea6-4c5a-a25e-b5a00e519677 2023-02-11
+lms-app: 2023/02/11 13:11:33 SERVER STARTING UP
+lms-app: 2023/02/11 13:11:33 CONNECTED TO DB NOW
+lms-app: 2023/02/11 13:11:38 lms-app: GET /user/126b8920-dea6-4c5a-a25e-b5a00e519677 2023-02-11
+lms-app: 2023/02/11 13:11:52 SERVER STARTING UP
+lms-app: 2023/02/11 13:11:52 CONNECTED TO DB NOW
+lms-app: 2023/02/11 13:11:53 lms-app: GET /user/126b8920-dea6-4c5a-a25e-b5a00e519677 2023-02-11
+lms-app: 2023/02/11 13:13:41 lms-app: GET /user/dad493e1-2b25-424e-9de7-0c05e79fa949 2023-02-11
+lms-app: 2023/02/11 13:13:57 lms-app: GET /user 2023-02-11

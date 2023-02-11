@@ -37,3 +37,4 @@ CREATE TABLE modules (
     content TEXT,
     sequence_id BIGSERIAL
 );
+
