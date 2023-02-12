@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     user_id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    email VARCHAR(50),
+    email VARCHAR(50) NOT NULL,
     password TEXT NOT NULL,
     created_on TIMESTAMP NOT NULL
 );

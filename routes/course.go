@@ -5,27 +5,37 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/lbwise/LMS/db"
+	sess "github.com/lbwise/LMS/session"
 )
 
 type Course struct {
-	Name string `json: "name"`
-	Price string `json: "price"`
+	Name string `json:"name"`
+	Price string `json:"price"`
 }
 
 type CourseFull struct {
 	Course
-	ID string `json: "id"`
-	Description string `json: "description"`
-	Created string `json: "create_on"`
+	ID string `json:"id"`
+	Description string `json:"description"`
+	Created string `json:"created_on"`
 }
 
 
-func UserRoutes(router *gin.RouterGroup) {
+func CourseRoutes(router *gin.RouterGroup) {
 	router.GET("", getCourses)
 	router.GET("/:id", getCourseId)
 }
 
 func getCourses(c *gin.Context) {
+	session, err := sess.Get(c.Request, "user-session")
+	if err != nil {
+		panic(err.Error())
+	}
+	var loggedIn bool = session.Values["LOGGEDIN"].(bool)
+	
+	if loggedIn {
+		fmt.Printf("\nWOOO LOGGED IN\n\n")
+	}
 	var (
 		courses []Course
 		name string

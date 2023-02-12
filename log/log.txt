@@ -26,22 +26,12 @@ lms-app: GET /user/ 2023-02-11
 lms-app: GET /user/ 2023-02-11
 lms-app: GET /user/ 2023-02-11
 lms-app: GET /user/ 2023-02-11
-cat log.go
-this is a test
-this is a test
-this is a test
-this is a test
-this is a test
-this is a test
-this is a test
-this is a test
 lms-app: 2023/02/11 12:17:06 CONNECTED TO DB NOW
 lms-app: 2023/02/11 12:20:39 SERVER STARTING UP
 lms-app: 2023/02/11 12:20:39 CONNECTED TO DB NOW
 lms-app: 2023/02/11 12:23:52 SERVER STARTING UP
 lms-app: 2023/02/11 12:23:52 CONNECTED TO DB NOW
 lms-app: 2023/02/11 12:24:05 lms-app: GET /home 2023-02-11
-
 lms-app: 2023/02/11 12:25:20 SERVER STARTING UP
 lms-app: 2023/02/11 12:25:20 CONNECTED TO DB NOW
 lms-app: 2023/02/11 12:25:32 lms-app: GET /user/ 2023-02-11
@@ -96,3 +86,30 @@ lms-app: 2023/02/11 13:11:52 CONNECTED TO DB NOW
 lms-app: 2023/02/11 13:11:53 lms-app: GET /user/126b8920-dea6-4c5a-a25e-b5a00e519677 2023-02-11
 lms-app: 2023/02/11 13:13:41 lms-app: GET /user/dad493e1-2b25-424e-9de7-0c05e79fa949 2023-02-11
 lms-app: 2023/02/11 13:13:57 lms-app: GET /user 2023-02-11
+lms-app: 2023/02/11 17:25:53 SERVER STARTING UP
+lms-app: 2023/02/11 17:25:53 CONNECTED TO DB NOW
+lms-app: 2023/02/11 17:27:39 GET /study 2023-02-11
+lms-app: 2023/02/11 17:27:44 GET /study/ 2023-02-11
+lms-app: 2023/02/11 17:27:49 GET /course/ 2023-02-11
+lms-app: 2023/02/11 17:27:55 GET /user 2023-02-11
+lms-app: 2023/02/11 17:29:23 GET /user 2023-02-11
+lms-app: 2023/02/11 17:32:14 GET / 2023-02-11
+lms-app: 2023/02/11 17:32:15 GET /favicon.ico 2023-02-11
+lms-app: 2023/02/11 17:32:17 GET /home 2023-02-11
+lms-app: 2023/02/11 17:32:17 GET /favicon.ico 2023-02-11
+lms-app: 2023/02/11 17:32:50 SERVER STARTING UP
+lms-app: 2023/02/11 17:32:50 CONNECTED TO DB NOW
+lms-app: 2023/02/11 17:32:52 GET /home 2023-02-11
+lms-app: 2023/02/11 17:32:52 GET /favicon.ico 2023-02-11
+lms-app: 2023/02/11 17:38:14 SERVER STARTING UP
+lms-app: 2023/02/11 17:38:14 CONNECTED TO DB NOW
+lms-app: 2023/02/11 17:38:24 GET /home 2023-02-11
+lms-app: 2023/02/11 17:38:24 GET /home 2023-02-11
+lms-app: 2023/02/11 17:38:24 GET /home 2023-02-11
+lms-app: 2023/02/11 17:38:24 GET /home 2023-02-11
+lms-app: 2023/02/11 17:38:24 GET /home 2023-02-11
+lms-app: 2023/02/11 17:38:24 GET /home 2023-02-11
+lms-app: 2023/02/11 17:38:24 GET /home 2023-02-11
+lms-app: 2023/02/11 17:38:24 GET /home 2023-02-11
+lms-app: 2023/02/11 17:38:24 GET /home 2023-02-11
+lms-app: 2023/02/11 17:38:24 GET /home 2023-02-11

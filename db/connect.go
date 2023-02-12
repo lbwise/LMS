@@ -35,6 +35,6 @@ func ConnectDB() (*sql.DB, error) {
 
 func ResetDB(db *sql.DB) {
 	execSQL("./db/sql/reset.sql", db)
-	execSQL("./db/sql/user_seed_data.sql", db)
+	CreateUsers(db)	
 	execSQL("./db/sql/courses_seed_data.sql", db)
 }

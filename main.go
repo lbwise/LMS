@@ -2,43 +2,56 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"time"
 	"log"
+
 	"github.com/gin-gonic/gin"
+	sess "github.com/lbwise/LMS/session"
 	"github.com/lbwise/LMS/db"
+	lg "github.com/lbwise/LMS/log"
 	"github.com/lbwise/LMS/routes"
 )
 
-var Log *log.Logger 
+var logger *log.Logger			// shouldnt have to import log pkg
+
+// want to init all variables
+func init() {
+	sess.CreateStore()
+	logger, _ = lg.CreateLog()
+	// db.ResetDB(DB)
+}
 
 
 func main() {
-	file, _ := os.OpenFile("./log/log.txt", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600)
-	defer file.Close()
-	Log = log.New(file, "lms-app: ", log.Default().Flags())
 	server := gin.New()
-	DB, err := db.ConnectDB()
-	db.ResetDB(DB)	
+	_, err := db.ConnectDB()
+	
 	if err != nil {
-		Log.Fatal(err)
+		logger.Fatal(err)
 		panic(err.Error())
 	}
-	Log.Println("SERVER STARTING UP")
-	Log.Println("CONNECTED TO DB NOW")
+	logger.Println("SERVER STARTING UP")
+	logger.Println("CONNECTED TO DB NOW")
 	fmt.Printf("-------- LISTENING ON localhost:8080 --------\n\n")
 
 	server.Use(func(c *gin.Context) {
-		msg := fmt.Sprintf("lms-app: %s %s %s", c.Request.Method, c.Request.URL, time.Now().Format("2006-01-02"))
-		Log.Println(msg)
+		session, _ := sess.Get(c.Request, "user-session")
+		session.Values["LOGGEDIN"] = false
 	})
+
+	server.Use(func(c *gin.Context) {
+		logger.Println(c.Request.Method, c.Request.URL, time.Now().Format("2006-01-02"))
+	})
+
+
+
 	server.GET("/home", getHome)
-	router := server.Group("/")
+	router := server.Group("/api")
 	addRoutes(router)
 
 	err = server.Run(":8080")
 	if err != nil {
-		Log.Fatal(err)
+		logger.Fatal(err)
 		panic(err.Error())
 	}
 }

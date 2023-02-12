@@ -1,54 +1,96 @@
 package routes
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
-	"encoding/json"
+	"io/ioutil"
+	"time"
+
 	"github.com/gin-gonic/gin"
 	"github.com/lbwise/LMS/db"
+	sess "github.com/lbwise/LMS/session"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserLogin struct {
-	Username string `json: "username"`
-	Password string `json: "password"`
+	Email string `json:"email"`
+	Password string `json:"password"`
+}
+
+type UserProfile struct {
+	ID string `json:"user_id"`
+	Name string `json:"name"`
+	Email string `json:"email"`
+}
+
+type UserRegister struct {
+	UserProfile
+	Password string `json:"password"`
 }
 
 
 func AuthRoutes(router *gin.RouterGroup) {
-	router.GET("/login", getLogin)
 	router.POST("/login", postLogin)
-	router.GET("/register", getRegister)
 	router.POST("/register", postRegister)
 }
 
 
-func getLogin(c *gin.Context) {
-	c.String(200, "THIS IS THE LOGIN PAGE")
-}
-
-
 func postLogin(c *gin.Context) {
+	session, err := sess.Get(c.Request, "user-session")
+	fmt.Println("SESSION:")
+	if err != nil {
+		panic(err.Error())
+	}
 	var user UserLogin
-	var name string
+	var profile UserProfile
+	var password string
 	data, _ := io.ReadAll(c.Request.Body)
-	err := json.Unmarshal(data, &user)	
+	err = json.Unmarshal(data, &user)	
 	if err != nil {
 		panic(err.Error())
 	}
-	query := fmt.Sprintf(`SELECT name FROM users WHERE password='%s'`, user.Password)
-	err = db.DB.QueryRow(query).Scan(&name)
+	profile.Email = user.Email
+	fmt.Println(user.Email)
+	query := fmt.Sprintf(`SELECT user_id, name, password FROM users WHERE email='%s';`, user.Email)
+	err = db.DB.QueryRow(query).Scan(&profile.ID, &profile.Name, &password)
 	if err != nil {
 		panic(err.Error())
 	}
-	c.String(200, name)
-}
-
-
-func getRegister(c *gin.Context) {
-	return
+	err = bcrypt.CompareHashAndPassword([]byte(password), []byte(user.Password))
+	if err == bcrypt.ErrMismatchedHashAndPassword {
+		c.String(403, "Incorrect password try again")
+		return
+	} else if err != nil {
+		panic("AN ERROR OCCURED")
+	}
+	session.Values["LOGGEDIN"] = true
+	session.Save(c.Request, c.Writer)
+	c.JSON(200, profile)
 }
 
 
 func postRegister(c *gin.Context) {
-	return
+	var newUser UserRegister
+	data, err  := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		panic(err.Error())
+	}
+	err = json.Unmarshal(data, &newUser)
+	if err != nil {
+		panic(err.Error())
+	}
+	created := time.Now().Format("2006-01-02")
+	hashedPwd, err := bcrypt.GenerateFromPassword([]byte(newUser.Password), 10)
+	query := fmt.Sprintf(`INSERT INTO users (name, email, password, created_on) VALUES ('%s', '%s', '%s', '%s');`,
+		newUser.Name,
+		newUser.Email,
+		hashedPwd,
+		created,
+	)
+	_, err = db.DB.Exec(query)
+	if err != nil {
+		panic(err.Error())
+	}
+	c.String(201, "Signed up successfully")
 }
