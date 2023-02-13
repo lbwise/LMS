@@ -4,20 +4,25 @@ import (
 	"fmt"
 	"time"
 	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
-	sess "github.com/lbwise/LMS/session"
+	sess "github.com/gorilla/sessions"
 	"github.com/lbwise/LMS/db"
 	lg "github.com/lbwise/LMS/log"
 	"github.com/lbwise/LMS/routes"
 )
 
 var logger *log.Logger			// shouldnt have to import log pkg
+var cookie *sess.CookieStore 
 
 // want to init all variables
 func init() {
-	sess.CreateStore()
 	logger, _ = lg.CreateLog()
+	key := []byte(os.Getenv("SESSION_KEY"))
+	fmt.Println(string(key))
+	cookie = sess.NewCookieStore(key)
+	cookie.MaxAge(300)
 	// db.ResetDB(DB)
 }
 
@@ -35,15 +40,13 @@ func main() {
 	fmt.Printf("-------- LISTENING ON localhost:8080 --------\n\n")
 
 	server.Use(func(c *gin.Context) {
-		session, _ := sess.Get(c.Request, "user-session")
-		session.Values["LOGGEDIN"] = false
+		session, _ := cookie.Get(c.Request, "user-session")
+		c.Set("session", session)
 	})
 
 	server.Use(func(c *gin.Context) {
 		logger.Println(c.Request.Method, c.Request.URL, time.Now().Format("2006-01-02"))
 	})
-
-
 
 	server.GET("/home", getHome)
 	router := server.Group("/api")

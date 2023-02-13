@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/lbwise/LMS/db"
-	sess "github.com/lbwise/LMS/session"
 )
 
 type Course struct {
@@ -22,20 +21,11 @@ type CourseFull struct {
 
 
 func CourseRoutes(router *gin.RouterGroup) {
-	router.GET("", getCourses)
+	router.GET("", checkLoggedIn, getCourses)
 	router.GET("/:id", getCourseId)
 }
 
 func getCourses(c *gin.Context) {
-	session, err := sess.Get(c.Request, "user-session")
-	if err != nil {
-		panic(err.Error())
-	}
-	var loggedIn bool = session.Values["LOGGEDIN"].(bool)
-	
-	if loggedIn {
-		fmt.Printf("\nWOOO LOGGED IN\n\n")
-	}
 	var (
 		courses []Course
 		name string

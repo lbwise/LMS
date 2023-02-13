@@ -9,7 +9,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/lbwise/LMS/db"
-	sess "github.com/lbwise/LMS/session"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -31,27 +30,22 @@ type UserRegister struct {
 
 
 func AuthRoutes(router *gin.RouterGroup) {
+	router.GET("/login", func(c *gin.Context) { c.String(200, "PLEASE LOG IN DUDE")})
 	router.POST("/login", postLogin)
 	router.POST("/register", postRegister)
 }
 
 
 func postLogin(c *gin.Context) {
-	session, err := sess.Get(c.Request, "user-session")
-	fmt.Println("SESSION:")
-	if err != nil {
-		panic(err.Error())
-	}
 	var user UserLogin
 	var profile UserProfile
 	var password string
 	data, _ := io.ReadAll(c.Request.Body)
-	err = json.Unmarshal(data, &user)	
+	err := json.Unmarshal(data, &user)	
 	if err != nil {
 		panic(err.Error())
 	}
 	profile.Email = user.Email
-	fmt.Println(user.Email)
 	query := fmt.Sprintf(`SELECT user_id, name, password FROM users WHERE email='%s';`, user.Email)
 	err = db.DB.QueryRow(query).Scan(&profile.ID, &profile.Name, &password)
 	if err != nil {
@@ -59,14 +53,18 @@ func postLogin(c *gin.Context) {
 	}
 	err = bcrypt.CompareHashAndPassword([]byte(password), []byte(user.Password))
 	if err == bcrypt.ErrMismatchedHashAndPassword {
-		c.String(403, "Incorrect password try again")
+		c.Redirect(303, "/api/auth/login")
 		return
 	} else if err != nil {
 		panic("AN ERROR OCCURED")
 	}
-	session.Values["LOGGEDIN"] = true
-	session.Save(c.Request, c.Writer)
-	c.JSON(200, profile)
+	sess, err := getSession(c)
+	sess.Values["LOGGEDIN"] = true
+	if err != nil {
+		panic(err.Error())
+	}
+	sess.Save(c.Request, c.Writer)
+	c.JSON(202, profile)
 }
 
 
